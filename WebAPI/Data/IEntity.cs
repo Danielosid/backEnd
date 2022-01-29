@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace WebAPI.Data
 {
-    interface IEntity
+    public interface IEntity
     {
         int Id { get; set; }
     }
