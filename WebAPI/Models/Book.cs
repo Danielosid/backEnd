@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAPI.Data;
 
 namespace WebAPI.Models
 {
-    public class Book
+    public class Book : IEntity
     {
         public int Id { get; set; }
         

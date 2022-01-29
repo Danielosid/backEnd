@@ -12,47 +12,47 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrdersController : ControllerBase
+    public class ContactsController : ControllerBase
     {
         private readonly WebAPIContext _context;
 
-        public OrdersController(WebAPIContext context)
+        public ContactsController(WebAPIContext context)
         {
             _context = context;
         }
 
-        // GET: api/Orders
+        // GET: api/Contacts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Orders>>> GetOrders()
+        public async Task<ActionResult<IEnumerable<Contact>>> GetContact()
         {
-            return await _context.Orders.ToListAsync();
+            return await _context.Contact.ToListAsync();
         }
 
-        // GET: api/Orders/5
+        // GET: api/Contacts/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Orders>> GetOrders(int id)
+        public async Task<ActionResult<Contact>> GetContact(int id)
         {
-            var orders = await _context.Orders.FindAsync(id);
+            var contact = await _context.Contact.FindAsync(id);
 
-            if (orders == null)
+            if (contact == null)
             {
                 return NotFound();
             }
 
-            return orders;
+            return contact;
         }
 
-        // PUT: api/Orders/5
+        // PUT: api/Contacts/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrders(int id, Orders orders)
+        public async Task<IActionResult> PutContact(int id, Contact contact)
         {
-            if (id != orders.Id)
+            if (id != contact.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(orders).State = EntityState.Modified;
+            _context.Entry(contact).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace WebAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!OrdersExists(id))
+                if (!ContactExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace WebAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Orders
+        // POST: api/Contacts
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Orders>> PostOrders(Orders orders)
+        public async Task<ActionResult<Contact>> PostContact(Contact contact)
         {
-            _context.Orders.Add(orders);
+            _context.Contact.Add(contact);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOrders", new { id = orders.Id }, orders);
+            return CreatedAtAction("GetContact", new { id = contact.Id }, contact);
         }
 
-        // DELETE: api/Orders/5
+        // DELETE: api/Contacts/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOrders(int id)
+        public async Task<IActionResult> DeleteContact(int id)
         {
-            var orders = await _context.Orders.FindAsync(id);
-            if (orders == null)
+            var contact = await _context.Contact.FindAsync(id);
+            if (contact == null)
             {
                 return NotFound();
             }
 
-            _context.Orders.Remove(orders);
+            _context.Contact.Remove(contact);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool OrdersExists(int id)
+        private bool ContactExists(int id)
         {
-            return _context.Orders.Any(e => e.Id == id);
+            return _context.Contact.Any(e => e.Id == id);
         }
     }
 }

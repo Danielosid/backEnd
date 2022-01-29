@@ -12,47 +12,47 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrdersController : ControllerBase
+    public class BooksController : ControllerBase
     {
         private readonly WebAPIContext _context;
 
-        public OrdersController(WebAPIContext context)
+        public BooksController(WebAPIContext context)
         {
             _context = context;
         }
 
-        // GET: api/Orders
+        // GET: api/Books
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Orders>>> GetOrders()
+        public async Task<ActionResult<IEnumerable<Book>>> GetBook()
         {
-            return await _context.Orders.ToListAsync();
+            return await _context.Book.ToListAsync();
         }
 
-        // GET: api/Orders/5
+        // GET: api/Books/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Orders>> GetOrders(int id)
+        public async Task<ActionResult<Book>> GetBook(int id)
         {
-            var orders = await _context.Orders.FindAsync(id);
+            var book = await _context.Book.FindAsync(id);
 
-            if (orders == null)
+            if (book == null)
             {
                 return NotFound();
             }
 
-            return orders;
+            return book;
         }
 
-        // PUT: api/Orders/5
+        // PUT: api/Books/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrders(int id, Orders orders)
+        public async Task<IActionResult> PutBook(int id, Book book)
         {
-            if (id != orders.Id)
+            if (id != book.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(orders).State = EntityState.Modified;
+            _context.Entry(book).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace WebAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!OrdersExists(id))
+                if (!BookExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace WebAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Orders
+        // POST: api/Books
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Orders>> PostOrders(Orders orders)
+        public async Task<ActionResult<Book>> PostBook(Book book)
         {
-            _context.Orders.Add(orders);
+            _context.Book.Add(book);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOrders", new { id = orders.Id }, orders);
+            return CreatedAtAction("GetBook", new { id = book.Id }, book);
         }
 
-        // DELETE: api/Orders/5
+        // DELETE: api/Books/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOrders(int id)
+        public async Task<IActionResult> DeleteBook(int id)
         {
-            var orders = await _context.Orders.FindAsync(id);
-            if (orders == null)
+            var book = await _context.Book.FindAsync(id);
+            if (book == null)
             {
                 return NotFound();
             }
 
-            _context.Orders.Remove(orders);
+            _context.Book.Remove(book);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool OrdersExists(int id)
+        private bool BookExists(int id)
         {
-            return _context.Orders.Any(e => e.Id == id);
+            return _context.Book.Any(e => e.Id == id);
         }
     }
 }

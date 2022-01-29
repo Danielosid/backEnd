@@ -12,47 +12,47 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrdersController : ControllerBase
+    public class GenresController : ControllerBase
     {
         private readonly WebAPIContext _context;
 
-        public OrdersController(WebAPIContext context)
+        public GenresController(WebAPIContext context)
         {
             _context = context;
         }
 
-        // GET: api/Orders
+        // GET: api/Genres
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Orders>>> GetOrders()
+        public async Task<ActionResult<IEnumerable<Genre>>> GetGenre()
         {
-            return await _context.Orders.ToListAsync();
+            return await _context.Genre.ToListAsync();
         }
 
-        // GET: api/Orders/5
+        // GET: api/Genres/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Orders>> GetOrders(int id)
+        public async Task<ActionResult<Genre>> GetGenre(int id)
         {
-            var orders = await _context.Orders.FindAsync(id);
+            var genre = await _context.Genre.FindAsync(id);
 
-            if (orders == null)
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            return orders;
+            return genre;
         }
 
-        // PUT: api/Orders/5
+        // PUT: api/Genres/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutOrders(int id, Orders orders)
+        public async Task<IActionResult> PutGenre(int id, Genre genre)
         {
-            if (id != orders.Id)
+            if (id != genre.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(orders).State = EntityState.Modified;
+            _context.Entry(genre).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace WebAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!OrdersExists(id))
+                if (!GenreExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace WebAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Orders
+        // POST: api/Genres
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Orders>> PostOrders(Orders orders)
+        public async Task<ActionResult<Genre>> PostGenre(Genre genre)
         {
-            _context.Orders.Add(orders);
+            _context.Genre.Add(genre);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetOrders", new { id = orders.Id }, orders);
+            return CreatedAtAction("GetGenre", new { id = genre.Id }, genre);
         }
 
-        // DELETE: api/Orders/5
+        // DELETE: api/Genres/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteOrders(int id)
+        public async Task<IActionResult> DeleteGenre(int id)
         {
-            var orders = await _context.Orders.FindAsync(id);
-            if (orders == null)
+            var genre = await _context.Genre.FindAsync(id);
+            if (genre == null)
             {
                 return NotFound();
             }
 
-            _context.Orders.Remove(orders);
+            _context.Genre.Remove(genre);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool OrdersExists(int id)
+        private bool GenreExists(int id)
         {
-            return _context.Orders.Any(e => e.Id == id);
+            return _context.Genre.Any(e => e.Id == id);
         }
     }
 }
