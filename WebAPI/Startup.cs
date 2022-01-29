@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Data;
+using WebAPI.Data.EFCore;
 
 namespace WebAPI
 {
@@ -37,6 +38,12 @@ namespace WebAPI
 
             services.AddDbContext<WebAPIContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("WebAPIContext")));
+
+            services.AddScoped<EfCoreBookRepository>();
+            services.AddScoped<EfCoreClientRepository>();
+            services.AddScoped<EfCoreContactRepository>();
+            services.AddScoped<EfCoreGenreRepository>();
+            services.AddScoped<EfCoreOrderRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
